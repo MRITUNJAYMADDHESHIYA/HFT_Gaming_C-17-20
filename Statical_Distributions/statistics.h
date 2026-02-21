@@ -36,9 +36,9 @@ class StandardNormalDistribution : public StaticalDistribution{
 
         virtual double inv_cdf(const double& quantile) const;
 
-        virtual double mean() cosnt;
-        virtual double var()  const;
-        virtual double stdev() cosnt;
+        virtual double mean() const;  // 0
+        virtual double var()  const;  // 1
+        virtual double stdev() const; // 1
 
         virtual void random_draws(const std::vector<double>& uniform_draws, std::vector<double>& dist_draws);
 };
