@@ -13,15 +13,4 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /////Newton-Raphson and Brent's Method

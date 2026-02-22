@@ -11,7 +11,7 @@ class BlackScholesCall{
     public:
         BlackScholesCall(double _S, double _K, double _r, double _T);
 
-        double operator()(double sigma) const;
+        double operator()(double sigma) const; //object can behave like a function
 };
 
 #endif
