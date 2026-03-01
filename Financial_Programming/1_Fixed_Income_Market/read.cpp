@@ -23,3 +23,11 @@
 //////////////2.Compound interest /////////////////////////////
 ///////// use V = P(1 + R)^N ----->discrete compounded
 ////////  use V = Pe^RN      ----->contivuous compound
+
+
+//////////////3.Cash flows ///////////////////////////////////
+/////// PV = FV / (1 + R)^N
+////// A cash flow establishes the sequence of cash transfers between two interested parties
+
+//////////////4.Bonds ///////////////////////////////////////
+// 

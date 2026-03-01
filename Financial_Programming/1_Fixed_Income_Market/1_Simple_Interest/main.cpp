@@ -18,3 +18,4 @@ int main(int argc, const char* argv[]){
 
 //g++ main.cpp IntRateCalculator.cpp -o main
 //main 0.05 
+ 
