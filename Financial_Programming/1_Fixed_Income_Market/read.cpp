@@ -30,4 +30,6 @@
 ////// A cash flow establishes the sequence of cash transfers between two interested parties
 
 //////////////4.Bonds ///////////////////////////////////////
-// 
+// the principle is repaid in its entirety at maturity, between the period between the initial
+// investment and its maturity, investors are paid a constant value(caupon value), which determines the interest rate paid by the bond.
+

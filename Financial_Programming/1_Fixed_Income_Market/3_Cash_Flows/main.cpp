@@ -25,7 +25,7 @@ int main(int argc, const char* argv[]){
 
     return 0;
 }
-
+ 
 //g++ main.cpp cashFlow.cpp -o main
 //main 0.08
 //1 200
