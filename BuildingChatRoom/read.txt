@@ -1,0 +1,14 @@
+We are going to learn:-
+How to use Async communication or IO
+How to use threads, event loops, boost library
+socket programming, callbacks
+shared pointers, ownership
+Makefile & much more
+memory managment
+protocol design
+sockets
+
+
+
+I am learning:-
+1.

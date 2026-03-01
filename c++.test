@@ -1,0 +1,195 @@
+/////////HFT C++///////////////////////////
+1.Prediction performance + memory discipline + cache awareness
+2.Pre --> Object lifetimes + RAII + move semantics + const-correctness + references and pointer
+3.Read--> Effective Modern C++(scott meyers) + c++ concurrency(anthony williams)
+4.Performance/Memory---> stack vs heap allocation
+                         cache lines + false sharing
+                         alignment and padding
+                         branch prediction
+    What every Programmer should know about memory(ulrich drepper) + optimized c++(kurt guntheroth)
+5.Systems Thinking---->OS(most important) + NUMA effects + CPU pinning + syscall cost
+6.Concurrency/Lock-free basics--->(minimise blocking) atomics + memory ordering + lock-free queues + contention trade Off
+7.Architectures---> (Read for Ideas) LMAX disruptor architecture paper
+                                     Memory Barriers(ulrich drepper)
+                                     Intel latency Optimisation guides
+                                     Linux perf 
+8.Open-source---> boost.lockfree + folly + aeron messaging concepts
+9.Avoid-------> STL without cost awareness
+                benchmarking averages instead of p99+
+
+
+
+
+
+
+
+
+
+////////////////////////////////C++ Topic for HFT/////////////////////////////////////////////////
+1.Memory Management:-
+Heap vs Stack, memory leaks, placement new.
+Allocators, memory pools.
+Cache-aware programming.
+
+2.Multithreading & Concurrency
+std::thread, std::async, std::future.
+Atomics (std::atomic, memory_order).
+Lock-free queues (SPSC, MPMC) — widely used in order book engines.
+
+3.Low-Latency Techniques
+Busy-waiting vs blocking.
+NUMA architecture awareness.
+Branch prediction, false sharing, cache lines.
+Profiling (perf, valgrind, gperftools).
+
+4.Order & Order Book
+struct Order { id, price, qty, side }.
+Price levels with std::deque or custom ring buffers.
+Matching engine simulation (FIFO, priority queue).
+
+5.Market Data Handling
+Parsing FIX messages.
+Handling UDP multicast (for real-time feeds).
+Implementing circular buffers.
+
+6.Time Series & Math Utilities
+Rolling windows (for moving averages, volatility).
+Custom matrix/vector classes or use Eigen.
+Random number generators for Monte Carlo.
+
+7.Templates & Meta-programming
+Expression templates for math libraries.
+Compile-time computations with constexpr.
+Type traits & SFINAE.
+
+8.Networking
+Sockets (Boost.Asio, raw sockets).
+FIX protocol parsing.
+ZeroMQ for distributed trading systems.
+
+9.Real-Time Systems
+Lock-free data pipelines (e.g., SPSC queues).
+Latency measurement tools.
+Interfacing with hardware timers.
+
+/////////////////////////////////////HFT strategy////////////////////////////////////////////
+Low- Latency network + Powerful Hardware + Mathematical Model + Exchange data centre
+Strategy:-
+1.Market Making:-        Medium Speed       profit(bid-ask spread) - provide liquidity
+2.Arbitrage:-            Ultra-fast         profit(one stock on different exchange)(eg..cash-future arbitrage, spatial arbitrage, triangular arbitrage in forex)
+3.Latency Arbitrage:-    ultra-fast         profit(price delay on one exchange to other exchange)
+4.Statistical Arbitrage:-fast               Pair trading(Two stocks but correlated assets, buy one and sell other)
+5.Order Anticipation:-   ultra-fast         Big Institutional orders(placed in smaller chunks + Manipulation) Order flow + footprint chart + volume on price + heatmaps(level II)
+
+6.Iceberg:-              Real time          Traders can identify these hidden orders by observing repeated, large-volume executions at the same price, suggesting an iceberg order is absorbing trades. Analyzing trade execution patterns, volume profiles, and order book behavior can reveal the presence of these hidden orders. 
+7.Quote stuffing:-       ultra-fast         Quote stuffing is the practice where a large number of orders to buy or sell securities are placed and then canceled almost immediately
+8.Order Book Imbalance:- Real-time          
+
+
+
+/////////////////////////////////Infrastructure/////////////////////////////////////////
+1.Ultra-low latency Infrastructure:- c++ OR RUST /near exchange / dedicated VPS /
+2.Ultra-smooth:- CPU:        AMD threadripper pro 7975wx(32 cores, 64 thread)
+                 RAM:        256GB, DDR5 ECC(server ram)
+                 storage:    4TB NVMe Gen4(for datasets), 2TB SSD(os + backups)
+                 GPU:        NVIDIA RTX 4090(for visual backtests)
+                 Networking: 1Gps minimum, dualNIC setuo
+                 Cooling:    Custom liquid colling(silent & efficient)
+                cost:- 10lakh
+
+3.Real-Time server:- CPU:       Intel Xeon Gold 6426Y (24 cores @3.5 GHz base)
+                     RAM:       512GB DDR5 ECC
+                     Storage:   4TB NVMe RAID 0 (ultra fast data access)
+                     Network:   Dual 10Gbps Mellanox NICs + FPGA support(solarflare or Napatech)
+                     Extras:    Hardware timestamping, Realtime Linux kernal, BIOS-tuned latency setting
+                     OS:        Ubuntu Server tuned for low-latency
+                    cost:- 25-40 lakh
+
+4.Scalping(ultra-fast):- CPU:     Intel Xeon Platinum 8460Y(48 cores)
+                         RAM:     1TB ddr5 ECC
+                         GPU:     Dual NVIDIA h100
+                         Storage: 8TB NVMe RAID + 10TB SAS (archival + model storage)
+                         Network: 10Gbps fiber +FPGA integrated NICs
+                         Cooling: Fully liquid-cooled rack unit
+                        cast:- 70-1.2 CR
+
+
+/////////////////////////////////////////Python////////////////////////////////////////////////////////////
+Top 10 open source Quant Libraries and Packages 
+
+1. QuantLib:
+- Free/open-source C++ library for quantitative finance with bindings for Python, C#, Java, and R.
+- Focuses on pricing and risk management of various financial instruments like options, bonds, swaps, etc.
+- Offers market data integration, calendar handling, and numerical methods for solving complex financial problems.
+2. Backtrader:
+- Python framework for backtesting and live trading strategies.
+- Allows creation of custom trading indicators and execution on historical or live data.
+- Provides performance analysis tools and supports integration with data feeds and brokers.
+3. Fastquant:
+- Python library designed for quick and easy backtesting with minimal code.
+- Offers built-in indicators, data loading, and optimization tools.
+- Geared towards beginners or rapid prototyping quantitative trading ideas.
+4. Pyfolio:
+- Python library specifically for performance and risk analysis of financial portfolios.
+- Calculates various metrics like returns, Sharpe ratio, and drawdowns.
+- Enables risk analysis by asset, factor, and time period.
+- Provides visualizations to effectively communicate portfolio performance.
+5. TA-Lib:
+- Widely used technical analysis library in various languages, including Python.
+- Offers a comprehensive collection of over 200 technical indicators like RSI, MACD, Bollinger Bands, etc.
+- Allows calculation of custom indicators and integration with financial data platforms.
+6. Zipline:
+- Pythonic algorithmic trading library inspired by Quantopian's trading platform.
+- Enables development, backtesting, and deployment of trading algorithms.
+- Integrates with financial data providers and supports live trading through brokers.
+7. Alphalens:
+- Performance analysis tool specifically designed for factor investing strategies.
+- Calculates factor exposures, analyzes returns, and performs attribution analysis.
+- Helps evaluate the effectiveness of factor-based investing approaches.
+8. FinRL:
+- Deep reinforcement learning framework for automated stock trading.
+- Uses deep learning techniques to train trading agents on historical data.
+- Enables exploration of reinforcement learning approaches in quantitative finance.
+9. FFn:
+- Python library offering various financial functions and calculations.
+- Includes functions for common financial calculations like present/future value, interest rates, and option pricing.
+- Useful for basic financial computations and data analysis.
+10. PyPortfolioOpt:
+- Implements portfolio optimization methods, including classical mean-variance optimization techniques and Black-Litterman allocation.
+
+
+
+################################################# Projects #############################################################
+1.Lock-Free Queue Implementation (SPSC, MPMC).
+2.Limit Order Book Engine (with order matching logic).
+3.Market Data Feed Handler (parse simulated ticks via UDP).
+4.Backtesting Engine (fast event-driven in C++).
+5.Options Pricing Library (Black-Scholes, Monte Carlo, Greeks).
+6.Real-Time Trading Bot (with simulated exchange API).
+
+
+1.Market data parser & L1 recorder (easy)
+Ingest a raw market feed (simulated), parse messages, store to binary log (per-message timestamp).
+Goals: robust parsing, minimal allocations, high-throughput writing.
+
+2.Single-threaded limit order book / matching engine (easy → medium)
+Implements limit orders, cancels, fills; returns trades. Core of many HFT stacks.
+
+3.Multithreaded market data handler + lock-free dispatch (medium)
+SPSC ring buffers, producer (network io) -> consumer (book updater). Low allocations.
+
+4.Simple strategy + backtester (event-driven) (medium)
+Implement strategies (market making, mid-price mean-reversion), backtest on recorded L1/L2 logs.
+
+5.Limit order entry gateway with FIX/UDP (simulated) (medium → advanced)
+Send/receive orders via FIX or a simplified UDP protocol; implement order state machine and retransmit logic.
+
+6.Market-making strategy in live-sim (paper) (advanced)
+Realistic sim with latency injection, queue position modeling, exchange simulator.
+
+7.Exchange simulator + matching engine with L2 book & order priority (advanced)
+Support iceberg, IOC, FOK, partial fills, order routing, and multiple instruments.
+
+8.Co-location/low-latency experiments (measurement only) (advanced / lab)
+Measure RTTs, kernel bypass (DPDK), NIC tuning. (Hardware and host privileges required.)
+

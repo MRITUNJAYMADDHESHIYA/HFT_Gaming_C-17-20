@@ -1,0 +1,4 @@
+1.variance swap--> Hedge against future realized volatility of an asset.
+2.Payoff: The swap's payoff is based on the difference between:
+          Realized Variance−Strike Variance (Fair Variance)
+

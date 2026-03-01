@@ -1,0 +1,7 @@
+1. the goal is to allow dynamic dispatching of objects in two separate hierarchies of types. 
+
+
+2.The problem solved by the visitor pattern is the application of dynamic rules to two 
+or more polymorphic objects at the same time. This is necessary because C++, like some 
+other object-oriented languages, uses single dispatch to process polymorphic calls.
+

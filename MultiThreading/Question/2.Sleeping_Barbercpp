@@ -1,0 +1,50 @@
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+#include <queue>
+
+using namespace std;
+
+const int chairs = 3;
+int waitingCustomers = 0;
+mutex mtx;
+condition_variable cv;
+
+void barber() {
+    while (true) {
+        unique_lock<mutex> lock(mtx);
+        cv.wait(lock, [] { return waitingCustomers > 0; });
+
+        waitingCustomers--;
+        cout << "Barber is cutting hair... Waiting customers: " << waitingCustomers << endl;
+
+        lock.unlock();
+        this_thread::sleep_for(chrono::seconds(2));
+        cv.notify_all();
+    }
+}
+
+void customer(int id) {
+    unique_lock<mutex> lock(mtx);
+
+    if (waitingCustomers < chairs) {
+        waitingCustomers++;
+        cout << "Customer " << id << " is waiting. Total waiting: " << waitingCustomers << endl;
+        cv.notify_all();
+    } else {
+        cout << "Customer " << id << " left (no available chairs)." << endl;
+    }
+}
+
+int main() {
+    thread t(barber);
+
+    for (int i = 1; i <= 10; ++i) {
+        this_thread::sleep_for(chrono::seconds(1));
+        thread(customer, i).detach();
+    }
+
+    t.join();
+    return 0;
+}

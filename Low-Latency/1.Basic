@@ -1,0 +1,32 @@
+1.Latency Equation:-
+    Latency = Time of Order Placement - Time of Order Execution
+
+
+2.Levels of Low Latency in HFT Framework:-
+Microseconds (µs):
+    HFT systems strive to execute orders within microseconds, which are one-millionth of a second.
+    Latency at this level allows traders to react to market events faster than human perception.
+Nanoseconds (ns):
+    Some HFT strategies aim for latencies in the nanosecond range, which are one billionth of a second.
+    Achieving nanosecond-level latency is made possible through advanced technologies like Field-Programmable Gate Arrays (FPGAs) and custom hardware.
+Picoseconds (ps):
+    In the quest for the fastest possible execution, a few ultra-high-frequency trading strategies work at the picosecond level, which is one trillionth of a second.
+    Achieving picosecond-level latency is exceptionally challenging and requires cutting-edge technologies and infrastructure.
+
+
+3.Strategies for Minimizing Latency:-
+a-->Direct Market Access (DMA):
+        DMA allows traders to connect directly to an exchange’s trading infrastructure, bypassing intermediaries such as brokers or market makers.
+b-->FPGA Technology (Field-Programmable Gate Arrays):
+        FPGAs are hardware components that can be programmed to perform specific tasks with extremely low latency.
+        FPGAs offer ultra-low latency for critical trading functions, such as order book processing and order execution.
+
+4.
+-High performance order book design and implementation
+-High performance logger and journal design and implementation
+-High performance FIX decoder and encoder design and implementation
+-High performance queue design and implementation
+-Cache friendly data structures and coding techniques
+-Low latency system settings
+-Performance profiling how-tos
+-Use of SIMD

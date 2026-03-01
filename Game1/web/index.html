@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Pac-Man Controller</title>
+  <style>
+    body { background: black; color: white; font-family: sans-serif; text-align: center; }
+    .controller { margin-top: 50px; }
+    button {
+      font-size: 24px; padding: 15px 30px; margin: 10px;
+      background: yellow; border: none; border-radius: 10px;
+    }
+    #gameState { margin-top: 20px; font-size: 20px; color: cyan; }
+  </style>
+</head>
+<body>
+  <h1>🟡 Pac-Man Controller</h1>
+  <div class="controller">
+    <button onclick="sendCmd('up')">⬆️</button><br>
+    <button onclick="sendCmd('left')">⬅️</button>
+    <button onclick="sendCmd('stop')">⏹️</button>
+    <button onclick="sendCmd('right')">➡️</button><br>
+    <button onclick="sendCmd('down')">⬇️</button>
+  </div>
+  <div id="gameState">Position: (x, y)</div>
+
+  <script>
+    const ws = new WebSocket("ws://localhost:8000");
+    ws.onopen = () => console.log("Connected to server!");
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        document.getElementById('gameState').innerText = `Position: (${data.x}, ${data.y})`;
+      } catch (e) {}
+    };
+
+    function sendCmd(cmd) {
+      ws.send(cmd);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowUp') sendCmd('up');
+      else if (e.key === 'ArrowDown') sendCmd('down');
+      else if (e.key === 'ArrowLeft') sendCmd('left');
+      else if (e.key === 'ArrowRight') sendCmd('right');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+A frequent situation that occurs in complex systems is the occurrence of events that 
+trigger further actions. For example, an event that happens on financial systems is the 
+completion of an options trade. When a new trade is completed, several actions need to 
+be performed to update the system and reflect the new positions in the ledger.
+
+The observer design pattern is a very powerful strategy to manage event updates, 
+based on a standard technique that gives clients the ability to listen to events and 
+updates to a particular object and react accordingly.
+
+you have a one-to-many dependency between objects, such that when one object (the subject) changes state, 
+all its dependent objects (the observers) are notified and updated automatically.
