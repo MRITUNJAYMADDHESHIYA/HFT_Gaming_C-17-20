@@ -16,6 +16,7 @@ int main(int argc, const char* argv[]){
     return 0;
 }
 
+
 //g++ main.cpp IntRateCalculator.cpp -o main
 //main 0.05 
  
