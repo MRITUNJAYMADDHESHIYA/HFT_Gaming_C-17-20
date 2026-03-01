@@ -16,4 +16,10 @@
 
 //Interest rate + Principal + compound interest + compounding + present value
 
+///////////////1.Simple Interest rate ///////////////////////////
+//Only use simple formula V = P (1 + R)
 
+
+//////////////2.Compound interest /////////////////////////////
+///////// use V = P(1 + R)^N ----->discrete compounded
+////////  use V = Pe^RN      ----->contivuous compound

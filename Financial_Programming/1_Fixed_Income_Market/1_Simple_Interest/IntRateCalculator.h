@@ -16,6 +16,7 @@ class IntRateCalculator{
 };
 
 //simple formula :- V = P (1 + R)
+//inline use in header file
 inline double IntRateCalculator::singlePeriod(double present_value){
     double future_value = present_value * (1 + this->m_rate);
     return future_value;
