@@ -10,3 +10,8 @@
 //a.Range of values observed during that period === the highest and lowest values and return its difference.
 //b.the average range for a given time period ===
 //c.standard deviation
+
+
+///////4.Correlation
+//a sequence of closing prices for the last N periods. calculate the correlation between two equity instruments.
+
