@@ -15,3 +15,11 @@
 ///////4.Correlation
 //a sequence of closing prices for the last N periods. calculate the correlation between two equity instruments.
 
+////////5.Fundamental
+////a set of fundamental indicators for a particular holding
+// P/E
+// P/B
+// PEG
+// EBITDA
+// ROE
+// Forward P/E
