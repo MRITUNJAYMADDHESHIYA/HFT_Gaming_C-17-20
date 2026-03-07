@@ -4,6 +4,7 @@ from groq import Groq
 
 ####################### Groq api ####################################################
 # i am already remove my api
+client = Groq(api_key="")
 
 def explain_portfolio(strategy, year, portfolio, sector_df, mcap_df):
 
