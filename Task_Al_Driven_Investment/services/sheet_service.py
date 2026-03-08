@@ -2,6 +2,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from models.message_model import MessageRecord
 
+
 class GoogleSheetService:
 
     def __init__(self, credentials_file, sheet_name):
