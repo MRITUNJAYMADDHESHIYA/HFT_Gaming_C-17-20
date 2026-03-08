@@ -1,31 +1,34 @@
-import openai
+from groq import Groq
+
 
 class ComplianceAI:
 
     def __init__(self, api_key):
-        openai.api_key = api_key
+        self.client = Groq(api_key=api_key)
 
     def classify(self, message):
-
         prompt = f"""
-        Classify the following investor communication message.
+Classify the following investor communication message.
 
-        Categories:
-        Approved
-        Requires Review
-        Rejected
+Categories:
+Approved
+Requires Review
+Rejected
 
-        Message:
-        {message}
+Message:
+{message}
 
-        Only return one word.
-        """
+Only return one word.
+"""
 
-        response = openai.ChatCompletion.create(
-            model="gpt-4o-mini",
-            messages=[{"role":"user","content":prompt}]
+        response = self.client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
         )
 
-        result = response['choices'][0]['message']['content'].strip()
-
+        result = response.choices[0].message.content.strip()
         return result
+    
+    

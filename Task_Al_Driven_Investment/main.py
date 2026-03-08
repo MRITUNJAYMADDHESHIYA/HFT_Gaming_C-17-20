@@ -10,15 +10,20 @@ def main():
 
     print("Starting AI Workflow...")
 
-    sheet = GoogleSheetService("C:/Users/Mritunjay Maddhesiya/OneDrive/Desktop/C++HFT/Task_Al_Driven_Investment/credentials.json","InvestorMessages")
-    print("first")
-    
-    validator = Validator()
-    compliance = ComplianceAI("OPENAI_API_KEY")
-    scheduler = Scheduler()
-    sender = MessageSender()
+    sheet      = GoogleSheetService("C:/Users/Mritunjay Maddhesiya/OneDrive/Desktop/C++HFT/Task_Al_Driven_Investment/credentials.json","InvestorMessages")
+    validator  = Validator()
+    print("validator Ready")
 
-    manager = WorkflowManager(sheet,validator,compliance,scheduler,sender)
+    compliance = ComplianceAI("api_keys")
+    print("Compliance ai ready")
+
+    scheduler  = Scheduler()
+    print("schedular ready")
+
+    sender     = MessageSender()
+    print("Message sender ready")
+    
+    manager    = WorkflowManager(sheet,validator,compliance,scheduler,sender)
 
     print("Processing rows from Google Sheet...")
     manager.process()
@@ -30,4 +35,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-    

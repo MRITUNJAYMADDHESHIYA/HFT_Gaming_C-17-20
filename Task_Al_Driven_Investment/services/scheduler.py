@@ -14,7 +14,6 @@ class Scheduler:
             schedule.every(delay).seconds.do(send_function, record)
 
     def run(self):
-
         while True:
             schedule.run_pending()
             time.sleep(1)

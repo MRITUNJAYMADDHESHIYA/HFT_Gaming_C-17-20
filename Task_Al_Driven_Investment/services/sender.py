@@ -1,17 +1,35 @@
+import pywhatkit
+from datetime import datetime
+
+
 class MessageSender:
 
     def send(self, record):
 
         try:
 
-            print(f"Sending message to {record.mobile}")
-            print(record.message)
+            mobile = "+91" + str(record.mobile)   # convert to string + add India code
 
-            # Here integrate SMS/WhatsApp API
-            # Twilio or WhatsApp Business API
+            print(f"Sending WhatsApp message to {mobile}")
+
+            now = datetime.now()
+
+            ###########
+            #  send message 1 minute later
+            hour = now.hour
+            minute = now.minute + 1
+
+            pywhatkit.sendwhatmsg(
+                mobile,
+                record.message,
+                hour,
+                minute
+            )
+
+            print("Message scheduled on WhatsApp")
 
             return True
 
         except Exception as e:
-            print(e)
+            print("Error:", e)
             return False

@@ -5,23 +5,20 @@ from models.message_model import MessageRecord
 class GoogleSheetService:
 
     def __init__(self, credentials_file, sheet_name):
-        scope = [
-            "https://spreadsheets.google.com/feeds",
-            "https://www.googleapis.com/auth/drive"
-        ]
+        scope = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/drive"]
 
         creds = ServiceAccountCredentials.from_json_keyfile_name(credentials_file, scope)
         client = gspread.authorize(creds)
 
         self.sheet = client.open(sheet_name).sheet1
 
+############## Pending and empty row ##################
     def read_pending_rows(self):
 
         rows = self.sheet.get_all_records()
+
         records = []
-
         for idx, row in enumerate(rows, start=2):
-
             if row["Status"] == "" or row["Status"] == "Pending":
 
                 record = MessageRecord(
