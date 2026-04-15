@@ -57,7 +57,7 @@ class Trader:
             imbalance = (total_bid_vol - total_ask_vol) / (total_bid_vol + total_ask_vol + 1e-6)
 
             #######################################################
-            # EMERALDS (SAFE MARKET MAKING)
+            # EMERALDS (SAFE MARKET MAKING)(stable)
             ##################################################
             if product == "EMERALDS":
 
@@ -88,7 +88,7 @@ class Trader:
                     # passive sell (inside spread)
                     orders.append(Order(product, best_ask - 1, -sell_volume))
 
-            # =========================
+            ###############################################
             # TOMATOES (PASSIVE ALPHA)
             ###############################################
             if product == "TOMATOES":
@@ -110,14 +110,14 @@ class Trader:
                     buy_volume = min(10, limit - position)
                     sell_volume = min(10, limit + position)
 
-                    # BUY
+                    ############# BUY
                     if signal < -edge and buy_volume > 0:
                         orders.append(Order(product, best_ask, buy_volume))  # aggressive
 
                     else:
                         orders.append(Order(product, best_bid + 1, buy_volume))  # passive
 
-                    # SELL
+                    ############## SELL
                     if signal > edge and sell_volume > 0:
                         orders.append(Order(product, best_bid, -sell_volume))  # aggressive
 
