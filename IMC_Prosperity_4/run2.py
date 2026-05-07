@@ -86,6 +86,8 @@ class Trader:
             # 🚀 TREND MODE (NEW)
             ###########################################################
             if abs(trend) > 5 and vol > 2:
+                
+                #size = int(min(8, abs(trend)))
 
                 if trend > 0 and position < limit:
                     orders.append(Order(product, best_ask, min(15, limit - position)))
