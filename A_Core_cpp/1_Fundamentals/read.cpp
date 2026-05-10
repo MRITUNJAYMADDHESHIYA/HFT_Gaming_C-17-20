@@ -125,3 +125,41 @@ class logger{
         }
 };
 
+
+///////////////////// Referance vs Pointer ////////////////////////
+//Reference:-(another name of same object)
+//canot be null
+
+
+
+
+
+
+//Pointer:-(object address)
+//can be nullptr
+
+
+int a = 1;
+int b = 2;
+
+int* p = &a;
+p = &b;     //i can change in pointer
+
+int& r = a;
+r = b;   //i can't
+
+//array
+void f(int* arr){}   //no array size information
+void f(int(&arr)[N]){} //exact size and type
+
+//function return
+int& f(){
+    int x = 5;
+    return x;
+}///dangling reference --->undefined behavior
+
+//references in classes
+class A{
+    int& ref;
+};
+
