@@ -1,0 +1,127 @@
+//1.Compilation model ==== preprocessing(#include) + compilation() + linking
+//2.Translation unit  ==== main.cpp + all included headers
+//3.Header files      ==== declarations + templates + inline + class +constants
+//4.include guards    ==== avoid same header
+#ifndef MATH_H
+#define MATH_H
+#endif
+//or
+#pragma once
+
+//5.ODR(one definition rule)  ==== variables/function + classes/types/templates + inline functions +  
+/////declaration(something exists) + definition(actually created it)
+
+
+
+//////// Stack vs Heap ///////////////////////////////////
+//stack
+//1.automatic memory
+//2.data-type(int, char, double) store and no manual cleanup needed
+//3.every function call creates a stack frame
+//4.compile time
+//5.faster
+
+
+//heap
+//1.dynamic memory + 
+//2.new + malloc , delete
+//3.runtime
+//4.slower === searching free memory + fragmentation + allocator + synchronization
+
+
+int* p = new int(5);
+//stack: p   + heap:5
+
+class A{
+    public:
+        A(){std::cout<<"Constructor";}
+        ~A(){std::cout<<"Destructor";}
+};
+int main(){
+    A  obj1;            //stack
+    A* obj2 = new A();  //heap
+    delete obj2;
+}
+
+
+///////// Memory layout of a C++ program /////////////////
+
+int global_init = 10;        //data segment
+static global_init2 = 5;     //data segment
+
+int global_uninit;           //BSS segment (block started by symbol)
+static global_uninit2;       //BSS segment
+
+const char* msg = "Hello";   //RODATA(read-only data segment)
+
+void func(){
+    int local = 5;               //stack segment
+    int* p = new int(5);         //heap segment
+
+    delete p;
+}
+
+///why are globals initialized to zero? --> BSS is zeroed by OS loader
+
+
+//////////////////  Const (thread safety + compiler optimization )///////////////////////
+//1.const variables
+//2.pointers
+//3.const reference
+//4.const member functions
+//5.const objects
+//6.mutable---->using this i can modify it
+//7.const retrun types
+
+
+const int x = 10;   //can't be modify
+
+//pointer to const
+const int* p;
+int const* p;    //data is cont + pointer is mutable
+
+
+//const pointer
+int* const p = &x; //data is mutable + pointer is const
+
+
+//const pointer to const data
+const int* const p = &x;  //both fixed
+
+////reference
+void print(std::string s){}
+void print(const std::string& s) {} //no copy + can't modify 
+
+///const member
+class A{
+    int x;
+
+    public:
+        int getX() const{
+            return x;
+        }
+};
+
+//const objects
+const A obj;
+class A{
+    public:
+        void f() {}
+        void g() const {}
+};
+
+const A a;
+a.g(); //ok
+a.f(); //error
+
+
+//////mutable
+class logger{
+    mutable int count = 0;
+
+    public:
+        void log() const{
+            ++count;
+        }
+};
+
