@@ -163,3 +163,87 @@ class A{
     int& ref;
 };
 
+
+/////////////////////// lvalue vs rvalue ///////////////////////////
+//lvalue:-  <---- glvalue(generalized Lvalue) ---> xvalue(expiring value)
+//has identifiable memory location
+
+
+
+
+//rvalue:- ---->prvalue(pure right value)
+//temporary value
+//rvalue have no memory
+
+int x = 10; //x-->lvalue   + 10 -->rvalue
+
+int& r = x; //ok
+int& r = 5; //error
+
+const int& r = 5;  //compiler creates temporary object
+
+std::vector<int> v1 = {1,2,3};
+std::vector<int> v2 = std::move(v1);  //converts to rvalue(moving instead of copying)
+
+
+void f(int& x){
+    std::cout<<"lvalue";
+}
+void f(int&& x){
+    std::cout<<"rvalue";
+}
+
+int a = 5;
+f(a); //lvalue
+f(5); //rvalue
+
+
+
+////////////////////// move semantics ////////////////////////////
+//steal internal pointer
+
+class Buffer{
+    int* data;
+    size_t size;
+
+    public:
+        Buffer(size_t n) : size(n){
+            data = new int[n];
+        }
+
+        ~Buffer(){
+            delete[] data;
+        }
+
+        //move constructor
+        Buffer(Buffer&& other): data(other.data), size(other.size){
+            other.data = nullptr;
+            other.size = 0;
+        }
+
+        //move assignment operator
+        Buffer& operator=(Buffer&& other){
+            if(this != &other){
+                delete[] data;
+
+                data = other.data;
+                size = other.size;
+
+                other.data = nullptr;
+                other.size = 0;
+            }
+            return *this;
+        }
+};
+
+
+
+
+
+
+
+
+
+
+
+
