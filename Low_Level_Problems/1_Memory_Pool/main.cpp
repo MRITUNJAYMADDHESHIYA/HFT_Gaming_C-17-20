@@ -19,7 +19,7 @@
 //Design:-
 // memory pool
 // ------------------------------------------------------
-// |Block0 | block1 | block2 | block3 |...... | BlockN |
+// | Block0 | block1 | block2 | block3 |...... | BlockN |
 // ------------------------------------------------------
 // 
 // Free list
@@ -85,3 +85,6 @@ class MemoryPool{
             freeList_ = block;
         }
 };
+
+
+

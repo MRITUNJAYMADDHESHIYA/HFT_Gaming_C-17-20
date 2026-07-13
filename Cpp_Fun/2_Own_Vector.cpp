@@ -1,4 +1,4 @@
-//I have implemented a simple vector class in c++ that mimics the bahavior of str::vector
+//I have implemented a simple vector class in c++ that mimics the bahavior of std::vector
 
 
 
